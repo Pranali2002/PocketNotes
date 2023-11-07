@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./App.css";
+import Modal from "./components/Modal";
 
 function App() {
   const [noteText, setNoteText] = useState("");
@@ -10,41 +11,58 @@ function App() {
   const [groupColor, setGroupColor] = useState("#6691FF");
   const [isGroupDialogOpen, setGroupDialogOpen] = useState(false);
 
+  const modalRef = useRef();
+
   const handleNoteChange = (e) => {
     setNoteText(e.target.value);
   };
 
-  const handleNoteSubmit = () => {
+  const loadLatestNotes = () => {
+    const groupsList = localStorage.getItem("groups");
+    if (groupsList) {
+      setGroups(JSON.parse(groupsList));
+    }
+  };
+
+  useEffect(() => {
+    loadLatestNotes();
+  }, []);
+
+  const handleNoteSubmit = (e) => {
+    e.preventDefault();
     if (noteText.trim() === "") return;
 
     const currentTime = new Date().toLocaleString();
     const newNote = { text: noteText, time: currentTime };
 
-    const updatedNotes = selectedGroup
-      ? groups.map((group) =>
-          group === selectedGroup
-            ? { ...group, notes: [...(group.notes || []), newNote] }
-            : group
-        )
+    const updatedGroup = {
+      ...selectedGroup,
+      notes: [...(selectedGroup.notes || []), newNote],
+    };
+    const updatedGroups = selectedGroup
+      ? groups.map((group) => (group === selectedGroup ? updatedGroup : group))
       : groups;
-    setGroups(updatedNotes);
-    setNoteText("");
 
     // Save notes to local storage
-    localStorage.setItem("groups", JSON.stringify(updatedNotes));
+    localStorage.setItem("groups", JSON.stringify(updatedGroups));
+    setSelectedGroup(updatedGroup);
+    setGroups(updatedGroups);
+    setNoteText("");
   };
 
   const handleCreateGroup = () => {
     setGroupDialogOpen(true);
+    loadLatestNotes();
   };
 
-  const handleGroupCreate = () => {
+  const handleGroupCreate = (e) => {
+    e.preventDefault();
     if (groupName.trim() === "") return;
 
     const newGroup = {
       name: groupName,
       color: groupColor,
-      notes: []
+      notes: [],
     };
 
     setGroups([...groups, newGroup]);
@@ -52,6 +70,7 @@ function App() {
 
     // Save groups to local storage
     localStorage.setItem("groups", JSON.stringify([...groups, newGroup]));
+    setGroupName("");
   };
 
   const handleGroupColorChange = (color) => {
@@ -60,6 +79,24 @@ function App() {
 
   const handleGroupSelect = (group) => {
     setSelectedGroup(group);
+  };
+
+  const getFormattedDate = (dateObj) => {
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    return new Date(dateObj).toLocaleDateString("en-US", options);
+  };
+
+  const getFormattedTime = (dateObj) => {
+    const options = {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    };
+    return new Date(dateObj).toLocaleTimeString("en-US", options);
   };
 
   return (
@@ -105,27 +142,44 @@ function App() {
               {selectedGroup.notes &&
                 selectedGroup.notes.map((note, index) => (
                   <div key={index} className="note">
+                    <div className="note-time">
+                      <div>{getFormattedTime(note.time)}</div>
+                      <div>{getFormattedDate(note.time)}</div>
+                    </div>
                     <div className="note-text">{note.text}</div>
-                    <div className="note-time">{note.time}</div>
                   </div>
                 ))}
             </div>
-            <div className="input-container">
+            <form
+              name="new-note-form"
+              id="new-note-form"
+              className="input-container"
+              onSubmit={handleNoteSubmit}
+            >
               <input
                 type="text"
                 placeholder="Enter text"
                 value={noteText}
+                className="input-note"
                 onChange={handleNoteChange}
               />
-              <button onClick={handleNoteSubmit}>Enter</button>
-            </div>
+              <button type="submit">Enter</button>
+            </form>
           </div>
         ) : (
           <div className="no-group-selected">Select a group to view notes.</div>
         )}
       </div>
-      {isGroupDialogOpen && (
-        <div className="group-dialog">
+      <Modal
+        handleClose={() => setGroupDialogOpen(false)}
+        show={isGroupDialogOpen}
+      >
+        <form
+          name="new-group-form"
+          onSubmit={handleGroupCreate}
+          className="group-dialog"
+          ref={modalRef}
+        >
           <input
             type="text"
             placeholder="Enter group name"
@@ -164,11 +218,11 @@ function App() {
               onClick={() => handleGroupColorChange("#B38BFA")}
             ></div>
           </div>
-          <button className="create-button" onClick={handleGroupCreate}>
+          <button className="create-button" type="submit">
             Create
           </button>
-        </div>
-      )}
+        </form>
+      </Modal>
     </div>
   );
 }
