@@ -2,11 +2,21 @@ import React from "react";
 import GroupDetails from "./GroupDetails";
 import NoGroupSelected from "./NoGroupSelected";
 
-function RightSideNotesPage({ selectedGroup, getFormattedDate, getFormattedTime }) {
+function RightSideNotesPage({
+  selectedGroup,
+  handleNoteChange,
+  handleNoteSubmit,
+  noteText,
+}) {
   return (
     <div className="right">
       {selectedGroup ? (
-        <GroupDetails selectedGroup={selectedGroup} getFormattedDate={getFormattedDate} getFormattedTime={getFormattedTime} />
+        <GroupDetails
+          selectedGroup={selectedGroup}
+          handleNoteChange={handleNoteChange}
+          handleNoteSubmit={handleNoteSubmit}
+          noteText={noteText}
+        />
       ) : (
         <NoGroupSelected />
       )}

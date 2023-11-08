@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
-import LeftSidebar from "./components/LeftSideBar/LeftSideBar"; 
-import RightSideNotesPage from "./components/RightSideNotesPage/RightSideNotesPage"; 
+import LeftSidebar from "./components/LeftSideBar/LeftSideBar";
+import RightSideNotesPage from "./components/RightSideNotesPage/RightSideNotesPage";
 import Modal from "./components/Modal/Modal";
 import GroupDialog from "./components/GroupDialog/GroupDialog";
 import "./App.css";
+import useIsMobile from "./hooks/use-is-mobile";
 
 function App() {
+  const isMobile = useIsMobile();
+
   const [noteText, setNoteText] = useState("");
   const [groups, setGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState(null);
@@ -33,7 +36,7 @@ function App() {
     e.preventDefault();
     if (noteText.trim() === "") return;
 
-    const currentTime = new Date().toLocaleString();
+    const currentTime = new Date();
     const newNote = { text: noteText, time: currentTime };
 
     const updatedGroup = {
@@ -80,23 +83,32 @@ function App() {
     setSelectedGroup(group);
   };
 
-  const getFormattedDate = (dateObj) => {
-    const options = {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    };
-    return new Date(dateObj).toLocaleDateString("en-US", options);
-  };
-
-  const getFormattedTime = (dateObj) => {
-    const options = {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
-    };
-    return new Date(dateObj).toLocaleTimeString("en-US", options);
-  };
+  if (isMobile) {
+    return (
+      <div className="App">
+        <LeftSidebar
+          groups={groups}
+          selectedGroup={selectedGroup}
+          handleCreateGroup={handleCreateGroup}
+          handleGroupSelect={handleGroupSelect}
+        />
+        <Modal
+          handleClose={() => setGroupDialogOpen(false)}
+          show={isGroupDialogOpen}
+        >
+          <GroupDialog
+            isGroupDialogOpen={isGroupDialogOpen}
+            handleGroupDialogClose={() => setGroupDialogOpen(false)}
+            handleGroupCreate={handleGroupCreate}
+            handleGroupNameChange={(e) => setGroupName(e.target.value)}
+            handleGroupColorChange={handleGroupColorChange}
+            groupName={groupName}
+            groupColor={groupColor}
+          />
+        </Modal>
+      </div>
+    );
+  }
 
   return (
     <div className="App">
@@ -111,8 +123,6 @@ function App() {
         noteText={noteText}
         handleNoteChange={handleNoteChange}
         handleNoteSubmit={handleNoteSubmit}
-        getFormattedDate={getFormattedDate}
-        getFormattedTime={getFormattedTime}
       />
       <Modal
         handleClose={() => setGroupDialogOpen(false)}

@@ -1,10 +1,10 @@
 import React from "react";
 
 function ColorPicker({ handleGroupColorChange }) {
-  
   return (
     <div className="color-picker">
       <div className="choose-color-text">Choose Colour </div>
+      <div className="colors-container">
         <div
           className="color-circle"
           style={{ backgroundColor: "#6691FF" }}
@@ -35,6 +35,7 @@ function ColorPicker({ handleGroupColorChange }) {
           style={{ backgroundColor: "#B38BFA" }}
           onClick={() => handleGroupColorChange("#B38BFA")}
         ></div>
+      </div>
     </div>
   );
 }
