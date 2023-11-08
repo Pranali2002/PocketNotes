@@ -33,7 +33,7 @@
 /* Create Notes Group Button */
 .create-group-button {
   width: 90%;
-  height: 7%;
+  height: 8%;
   border-radius: 50px;
   background: #000;
   color: #fff;
@@ -46,6 +46,14 @@
   margin-bottom: 8%;
   text-align: center;
   cursor: pointer;
+}
+
+.create-group-button img {
+  vertical-align: middle;
+  height: 50%;
+  width: 12%;
+  align-items: center;
+  margin-right: 2%;
 }
 
 /* Groups List */
@@ -229,6 +237,7 @@ input[type="text"] {
 /* Group Dialog */
 .group-dialog {
   width: 60%;
+  height: inherit;
   top: 50%;
   left: 50%;
   border-radius: 5px;
@@ -242,9 +251,9 @@ input[type="text"] {
 }
 
 .dialog-instructions{
-  font-size: 29px;
+  font-size: 27px;
   font-weight: 500;
-  line-height: 100%;
+  line-height: 50%;
   letter-spacing: 0.035em;
   text-align: left;
   padding: 1%;
@@ -253,7 +262,7 @@ input[type="text"] {
 
 .group-name-label{
   display: inline-flex;
-  font-size: 27px;
+  font-size: 29px;
   font-weight: 500;
   line-height: 50%;
   letter-spacing: 0.035em;
@@ -264,6 +273,7 @@ input[type="text"] {
 /* Group Name Input */
 .group-dialog input[type="text"] {
     width: 50%;
+    height: inherit;
     padding: 1%;
     margin-bottom: 1rem;
     -webkit-box-sizing: border-box;
@@ -339,9 +349,10 @@ input[type="text"] {
 /* Landing Page */
 
 .landing-img{
-  display: block;
+  display: flex;
   flex-direction: column;
-  padding-top: 8%;
+  padding-top: 5%;
+  padding-bottom: 2%;
 }
 
 .landing-title{
@@ -352,6 +363,7 @@ input[type="text"] {
   text-align: center;
   padding: 5%;
   padding-top: 3%;
+  padding-bottom: 2%;
 }
 
 .landing-description {
@@ -360,19 +372,19 @@ input[type="text"] {
   line-height: 150%; 
   letter-spacing: 0.02em;
   text-align: center;
-  padding-left: 5%;
-  padding-right: 5%;
+  padding: 5%;
 }
 
 /* Encryption */
 
 .encryption{
   display: -webkit-inline-box;
+  position: absolute;
   flex-direction: row;
   padding-top: 15%;
   bottom: 0;
   padding-bottom: 0;
-  margin-bottom: 0;
+  margin-bottom: 0.5%;
   }
 
 .encryption-img{
