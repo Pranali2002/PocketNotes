@@ -50,6 +50,16 @@
   margin: 1rem;
 }
 
+
+.create-group-button img {
+    vertical-align: middle;
+    height: 45%;
+    width: 13%;
+    align-items: center;
+    margin-right: 5%;
+}
+
+
 /* Groups List */
 .groups-list {
   overflow-y: auto;
