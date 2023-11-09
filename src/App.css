@@ -413,10 +413,11 @@ html, body {
 .encryption {
   display: -webkit-inline-box;
   flex-direction: row;
+  position: absolute;
   padding-top: 15%;
   bottom: 0;
   padding-bottom: 0;
-  margin-bottom: 0;
+  margin-bottom: 1%;
 }
 
 .encryption-img {
