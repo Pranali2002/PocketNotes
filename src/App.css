@@ -1,9 +1,10 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow: visible; 
+  overflow: visible;
 }
 
 /* App Container */
@@ -26,7 +27,7 @@ html, body {
 }
 
 .left-mobile {
-  width: 100%;
+  width: 100% !important;
   background-color: #fff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -51,22 +52,20 @@ html, body {
   color: #fff;
   font-weight: 500;
   font-size: 1.6rem;
-  padding: 0.4rem 2rem;
+  /*padding: 0.4rem 2rem;*/
   text-align: center;
   cursor: pointer;
   border: none;
   margin: 1rem;
 }
 
-
 .create-group-button img {
-    vertical-align: middle;
-    height: 45%;
-    width: 13%;
-    align-items: center;
-    margin-right: 5%;
+  vertical-align: middle;
+  height: 45%;
+  width: 13%;
+  align-items: center;
+  margin-right: 5%;
 }
-
 
 /* Groups List */
 .groups-list {
@@ -130,6 +129,10 @@ html, body {
   position: relative;
 }
 
+.right-mobile {
+  width: 100% !important;
+}
+
 /* Group Details */
 .group-details {
   padding: 0;
@@ -151,18 +154,17 @@ html, body {
 /* Group Info */
 .group-info {
   background-color: #e8e8e8;
-  padding: 1%;
+  padding: 0.8rem 0.4rem;
   display: flex;
   align-items: center;
 }
 
-
 .notes-container {
   margin-top: 1%;
   padding: 2%;
-  overflow-y: auto; 
-  flex: 1; 
-  max-height: 60%; 
+  overflow-y: auto;
+  flex: 1;
+  max-height: 58%;
 }
 
 /* Note */
@@ -191,24 +193,28 @@ html, body {
   font-size: 14px;
   font-weight: 400;
   line-height: 180%;
-  width: 15%;
+  width: 17%; 
   color: #353535;
   text-align: left;
+  padding: 0 0.4rem;
 }
 
-
 /* Input Container */
-.input-container {
+
+.input-container-form {
   position: absolute;
   bottom: 0;
   right: 0;
   left: 0;
   width: inherit;
   padding: 1rem;
-  display: flex;
-  align-items: center;
   margin-top: 2%;
   background-color: #e8e8e8;
+}
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
 #new-group-form {
@@ -226,10 +232,8 @@ html, body {
   font-size: 25px;
   border: 1px solid #cccccc;
   border-radius: 9px;
-  /*margin-right: 1%;*/
   box-sizing: border-box;
   height: 10rem;
-  width: inherit;
   max-height: 10rem;
 }
 
@@ -237,26 +241,22 @@ html, body {
 .group-name-div input[type="text"] {
   border: 1px solid #cccccc;
   border-radius: 9px;
-  /* margin-right: 1%; */
   box-sizing: border-box;
-  /* height: 10rem; */
   font-size: 1rem;
-  /* width: inherit; */
   padding: 0.8rem 1.2rem;
 }
 
 .enter-button {
-  position: fixed;
-  bottom: 4%;
-  right: 2%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
   cursor: pointer;
-  background-color: #fff;
+  background-color: transparent;
   color: #fff;
   align-items: center;
   justify-content: center;
-  width: 4%;
-  height: 4%;
   border: none;
+  padding: 0.8rem;
 }
 
 /* Style the image inside the button */
@@ -431,4 +431,9 @@ html, body {
   line-height: 5%;
   letter-spacing: 0.02em;
   padding-top: 10%;
+}
+
+.go-back-btn {
+  border: 0;
+  background-color: transparent;
 }

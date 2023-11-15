@@ -6,12 +6,19 @@ import GroupDialog from "./components/GroupDialog/GroupDialog";
 import "./App.css";
 import useIsMobile from "./hooks/use-is-mobile";
 
+export const OPENED_PAGES = {
+  HOME: "home",
+  GROUP: "group",
+};
+
 function App() {
   const isMobile = useIsMobile();
 
   const [noteText, setNoteText] = useState("");
   const [groups, setGroups] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState(null);
+
+  const [openedPage, setOpenedPage] = useState(OPENED_PAGES.HOME); // "home" || "group"
 
   const [groupName, setGroupName] = useState("");
   const [groupColor, setGroupColor] = useState("#6691FF");
@@ -80,18 +87,31 @@ function App() {
   };
 
   const handleGroupSelect = (group) => {
+    setOpenedPage(OPENED_PAGES.GROUP);
     setSelectedGroup(group);
   };
 
   if (isMobile) {
     return (
       <div className="App">
-        <LeftSidebar
-          groups={groups}
-          selectedGroup={selectedGroup}
-          handleCreateGroup={handleCreateGroup}
-          handleGroupSelect={handleGroupSelect}
-        />
+        {openedPage === OPENED_PAGES.HOME ? (
+          <LeftSidebar
+            groups={groups}
+            selectedGroup={selectedGroup}
+            handleCreateGroup={handleCreateGroup}
+            handleGroupSelect={handleGroupSelect}
+            setOpenedPage={setOpenedPage}
+          />
+        ) : (
+          <RightSideNotesPage
+            selectedGroup={selectedGroup}
+            noteText={noteText}
+            handleNoteChange={handleNoteChange}
+            handleNoteSubmit={handleNoteSubmit}
+            setSelectedGroup={setSelectedGroup}
+            setOpenedPage={setOpenedPage}
+          />
+        )}
         <Modal
           handleClose={() => setGroupDialogOpen(false)}
           show={isGroupDialogOpen}
@@ -143,4 +163,3 @@ function App() {
 }
 
 export default App;
-

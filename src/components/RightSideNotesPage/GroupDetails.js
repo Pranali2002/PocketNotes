@@ -8,10 +8,16 @@ function GroupDetails({
   handleNoteChange,
   handleNoteSubmit,
   noteText,
+  setSelectedGroup,
+  setOpenedPage,
 }) {
   return (
     <div className="group-details">
-      <GroupInfo selectedGroup={selectedGroup} />
+      <GroupInfo
+        selectedGroup={selectedGroup}
+        setSelectedGroup={setSelectedGroup}
+        setOpenedPage={setOpenedPage}
+      />
       <NotesContainer selectedGroup={selectedGroup} />
       <InputContainer
         handleNoteChange={handleNoteChange}
