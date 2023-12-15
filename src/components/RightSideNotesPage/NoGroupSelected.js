@@ -12,8 +12,7 @@ function NoGroupSelected() {
         /div> <
         div className = "landing-title" > Pocket Notes < /div> <
         div className = "landing-description" >
-        Your go - to web app
-        for creating, organizing, and accessing notes anytime, anywhere, even without an internet connection.Enjoy a chat - like interface to group and manage your notes effortlessly. <
+        Send and receive messages without keeping your phone online.Use Pocket Notes on up to 4 linked devices and 1 mobile phone <
         /div> <
         div className = "encryption" >
         <
@@ -23,8 +22,8 @@ function NoGroupSelected() {
         alt = "End-to-End Encryption" / >
         <
         /div> <
-        div className = "encryption-text" > end - to - end encrypted < /div> <
-        /div> <
+        div className = "encryption-text" > end - to - end encrypted < /div> < /
+        div > <
         /div>
     );
 }
