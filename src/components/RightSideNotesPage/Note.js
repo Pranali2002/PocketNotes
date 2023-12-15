@@ -25,10 +25,10 @@ function Note({ note }) {
         div className = "note-time" >
         <
         div > { getFormattedTime(note.time) } < /div> <
-        div > { getFormattedDate(note.time) } < /div> <
-        /div> <
-        div className = "note-text" > { note.text } < /div> <
-        /div>
+        div > { getFormattedDate(note.time) } < /div> < /
+        div > <
+        div className = "note-text" > { note.text } < /div> < /
+        div >
     );
 }
 
